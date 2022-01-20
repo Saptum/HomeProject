@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
+
 
 @Data
 @Entity
@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Author {
     @Id
     @GeneratedValue
-    private UUID authorId;
+    private Long Id;
     private String firstName;
     private String lastName;
     private String country;
@@ -26,4 +26,6 @@ public class Author {
     @JsonIgnore
     @OneToMany(mappedBy = "author")
     private Set<Song> songs = new HashSet<>();
+
+
 }
