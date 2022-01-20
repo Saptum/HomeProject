@@ -62,7 +62,7 @@ public class AuthorService {
     }
 
     public Author updateAuthor(Author author) {
-        Author updatedAuthor = authorRepository.findById(author.getId()).orElse(null);
+        Author updatedAuthor = authorRepository.findById(author.getAuthorId()).orElse(null);
         updatedAuthor.setLastName(author.getLastName());
         updatedAuthor.setFirstName(author.getFirstName());
         updatedAuthor.setCountry(author.getCountry());

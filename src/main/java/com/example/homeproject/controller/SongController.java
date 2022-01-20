@@ -1,67 +1,68 @@
 package com.example.homeproject.controller;
 
-import com.example.homeproject.model.Author;
+
 import com.example.homeproject.model.Song;
-import com.example.homeproject.repository.AuthorRepository;
-import com.example.homeproject.repository.SongRepository;
+
+
+import com.example.homeproject.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 @RestController
 public class SongController {
+
     @Autowired
-    private SongRepository songRepository;
-    @Autowired
-    private AuthorRepository authorRepository;
+    private SongService songService;
 
-    public Song saveSong(Song song) {
-        return songRepository.save(song);
+    @PostMapping("/saveSong")
+    public Song saveBook(@RequestBody Song song) {
+        return songService.saveSong(song);
     }
 
-    public List<Song> saveSongs(List<Song> songs) {
-        return songRepository.saveAll(songs);
+    @PostMapping("/saveSongs")
+    public List<Song> saveBooks(@RequestBody List<Song> songs) {
+        return songService.saveSongs(songs);
     }
 
-    public List<Song> getSongs() {
-        return songRepository.findAll();
+    @GetMapping("/getSongs")
+    public List<Song> getSongs(){
+        return songService.getSongs();
     }
 
-    public Song getSongById(Long id) {
-        return songRepository.findById(id).orElse(null);
+    @GetMapping("/getSongById/{id}")
+    public Song getSongById(@PathVariable Long id) {
+        return songService.getSongById(id);
     }
 
-    public List<Song> getSongsByName(String name) {
-        return songRepository.findAllByName(name);
+    @GetMapping("/getupdateSongsByName/{name}")
+    public List<Song> getSongsByName(@PathVariable String name) {
+        return songService.getSongsByName(name);
     }
 
-    public List<Song> getSongsByCreationDate(Date date) {
-        return songRepository.findAllByCreationDate(date);
+    @GetMapping("/getSongsByDate/{date}")
+    public List<Song> getSongsByCreationDate(@PathVariable Date date){
+        return songService.getSongsByCreationDate(date);
     }
 
 
-    public Song updateSong(Song song) {
-        Song updatedSong = songRepository.getById(song.getId());
-        updatedSong.setName(song.getName());
-        updatedSong.setCreationDate(song.getCreationDate());
-        updatedSong.setAuthor(song.getAuthor());
-        return songRepository.save(song);
+    @PutMapping("/updateSong")
+    public Song updateSong(@RequestBody Song song) {
+        return songService.updateSong(song);
     }
 
-    public String deleteSong(Long id) {
-       songRepository.deleteById(id);
-        return "Song " + id + " was deleted!";
+    @PutMapping("book/{song_id}/author/{author_id}")
+    public Song assignSongToAuthor(@PathVariable Long song_id, @PathVariable Long author_id) {
+        return songService .addSongToAuthor(author_id, song_id);
     }
 
-    public Song addSongToAuthor(Long author_id, Long song_id) {
-        Song song = songRepository.findById(song_id).orElse(null);
-        Author author = authorRepository.findById(author_id).orElse(null);
-        song.assignAuthor(author);
-        return songRepository.save(song);
-    }
 
+    @DeleteMapping("/deleteSong/{id}")
+    public String deleteSong(@PathVariable Long id) {
+        return songService.deleteSong(id);
+    }
 
 
 

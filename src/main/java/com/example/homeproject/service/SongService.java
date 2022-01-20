@@ -38,20 +38,20 @@ public class SongService {
         return songRepository.findAllByName(name);
     }
 
-    public List<Song> getBooksByCreationDate(Date date) {
+    public List<Song> getSongsByCreationDate(Date date) {
         return songRepository.findAllByCreationDate(date);
     }
 
 
     public Song updateSong(Song song) {
-       Song updatedBook = songRepository.getById(song.getId());
-        updatedBook.setName(song.getName());
-        updatedBook.setCreationDate(song.getCreationDate());
-        updatedBook.setAuthor(song.getAuthor());
+       Song updatedupdateSong = songRepository.getById(song.getId());
+        updatedupdateSong.setName(song.getName());
+        updatedupdateSong.setCreationDate(song.getCreationDate());
+        updatedupdateSong.setAuthor(song.getAuthor());
         return songRepository.save(song);
     }
 
-    public String deleteBook(Long id) {
+    public String deleteSong(Long id) {
         songRepository.deleteById(id);
         return "Song " + id + " was deleted!";
     }
