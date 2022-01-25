@@ -4,7 +4,6 @@ import com.example.homeproject.model.Author;
 import com.example.homeproject.model.Song;
 import com.example.homeproject.repository.AuthorRepository;
 import com.example.homeproject.repository.SongRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,10 +12,14 @@ import java.util.List;
 @Service
 public class SongService {
 
-    @Autowired
-    private SongRepository songRepository;
-    @Autowired
-    private AuthorRepository authorRepository;
+
+    private final SongRepository songRepository;
+    private final AuthorRepository authorRepository;
+
+    public SongService(SongRepository songRepository, AuthorRepository authorRepository) {
+        this.songRepository = songRepository;
+        this.authorRepository = authorRepository;
+    }
 
     public Song saveSong(Song book) {
         return songRepository.save(book);

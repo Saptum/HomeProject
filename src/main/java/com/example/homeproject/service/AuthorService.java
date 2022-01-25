@@ -3,7 +3,6 @@ package com.example.homeproject.service;
 import com.example.homeproject.model.Author;
 import com.example.homeproject.model.Song;
 import com.example.homeproject.repository.AuthorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,8 +11,12 @@ import java.util.List;
 @Service
 public class AuthorService {
 
-    @Autowired
-    private AuthorRepository authorRepository;
+
+    private final AuthorRepository authorRepository;
+
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     public Author findById(Long id) {
         return authorRepository.findById(id).orElse(null);
